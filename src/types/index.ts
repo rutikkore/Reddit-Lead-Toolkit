@@ -1,0 +1,71 @@
+// ---------------------------------------------------------------------------
+// Core domain types for the Reddit Lead Generation & Intelligence Toolkit
+// ---------------------------------------------------------------------------
+
+/** Target customer segment for a service */
+export type CustomerSegment = 'Individual' | 'MSME' | 'Startup' | 'All'
+
+/** Top-level service category */
+export interface ServiceCategory {
+  id: string
+  name: string
+  services: Service[]
+}
+
+/** A single service offered by NoLegalPaisa */
+export interface Service {
+  id: string
+  name: string
+  categoryId: string
+  /**
+   * Target customer segments for this service.
+   * Kept extensible — will grow as the catalog matures.
+   */
+  targetCustomers: CustomerSegment[]
+  /**
+   * Seed keywords useful for Reddit discovery.
+   * Intentionally left sparse at this stage so the team can curate them
+   * without modifying application logic.
+   */
+  keywords: string[]
+  description?: string
+}
+
+// ---------------------------------------------------------------------------
+// Reddit opportunity types
+// ---------------------------------------------------------------------------
+
+/** How confident we are that the post represents a genuine buying intent */
+export type IntentLevel = 'High' | 'Medium' | 'Low'
+
+/** Lifecycle status of a discovered lead */
+export type LeadStatus = 'New' | 'Reviewing' | 'Replied' | 'Archived'
+
+/** A Reddit post surfaced as a potential lead */
+export interface RedditPost {
+  id: string
+  subreddit: string
+  title: string
+  body: string
+  author: string
+  upvotes: number
+  commentCount: number
+  postedAt: string          // ISO-8601
+  permalink: string
+  /** Sample data label — must always be displayed alongside the post */
+  isSampleData: true
+}
+
+/** The result of analysing a Reddit post against the service catalog */
+export interface LeadOpportunity {
+  id: string
+  post: RedditPost
+  matchedServiceIds: string[]
+  intentLevel: IntentLevel
+  relevanceScore: number    // 0–100
+  reasoningSummary: string
+  suggestedReply: string
+  status: LeadStatus
+  discoveredAt: string      // ISO-8601
+}
+
