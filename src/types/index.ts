@@ -104,3 +104,40 @@ export interface MatchInput {
   body: string
 }
 
+/** Intent classification rule that fired. */
+export type IntentRule =
+  | 'purpose-override'
+  | 'request-with-situation'
+  | 'situation-question'
+  | 'informational'
+  | 'request-only'
+  | 'opinion'
+  | 'ambiguous'
+  | 'no-intent-cue'
+
+/** Confidence level of the rule-based classification. */
+export type IntentConfidence = 'high' | 'medium' | 'low'
+
+/** Cue or phrase detected in the input text. */
+export interface IntentSignal {
+  phrase: string
+  field: 'title' | 'body'
+  role:
+    | 'request'
+    | 'situation'
+    | 'informational'
+    | 'purpose'
+    | 'opinion'
+    | 'negation'
+    | 'hedge'
+}
+
+/** Result of classifying user intent from text. */
+export interface IntentResult {
+  category: IntentCategory
+  confidence: IntentConfidence
+  rule: IntentRule
+  signals: IntentSignal[]
+}
+
+
