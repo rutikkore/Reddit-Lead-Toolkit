@@ -69,3 +69,25 @@ export interface LeadOpportunity {
   discoveredAt: string      // ISO-8601
 }
 
+/** Relevance of one post to one service. Not lead priority. */
+export interface ServiceMatch {
+  serviceId: string;
+  /** Prototype heuristic, not validated. */
+  relevance: number;
+  matchedKeywords: string[];
+}
+
+/** What the poster appears to be trying to do. */
+export type IntentCategory =
+  | 'genuine-need'
+  | 'research'
+  | 'casual'
+  | 'irrelevant';
+
+/** One line explaining a future priority score. */
+export interface ScoreFactor {
+  label: string;
+  points: number;
+  reason: string;
+}
+
