@@ -91,3 +91,16 @@ export interface ScoreFactor {
   reason: string;
 }
 
+/** Keyword-level evidence for one service match. */
+export interface MatchDetail {
+  keyword: string
+  location: 'title' | 'body'
+  weight: number
+}
+
+/** Input to service matching. RedditPost satisfies this structurally. */
+export interface MatchInput {
+  title: string
+  body: string
+}
+
