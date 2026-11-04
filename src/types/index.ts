@@ -140,4 +140,16 @@ export interface IntentResult {
   signals: IntentSignal[]
 }
 
+/** Priority tier for lead review based on combined heuristic score. */
+export type PriorityBand = 'high' | 'medium' | 'low'
+
+/** Result of scoring and prioritizing a potential lead. */
+export interface LeadScoreResult {
+  score: number
+  band: PriorityBand
+  factors: ScoreFactor[]
+  capsApplied: string[]
+}
+
+
 
