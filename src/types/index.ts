@@ -151,5 +151,29 @@ export interface LeadScoreResult {
   capsApplied: string[]
 }
 
+/** Category of contextual indicator extracted from post text. */
+export type ContextIndicatorKind =
+  | 'timeline'
+  | 'urgency'
+  | 'location'
+  | 'budget'
+
+/** Individual contextual clue extracted with explainable evidence. */
+export interface ContextIndicator {
+  kind: ContextIndicatorKind
+  label: string
+  evidence: string
+  field: 'title' | 'body'
+}
+
+/** Contextual clues extracted from post text for lead qualification. */
+export interface OpportunityContext {
+  timelineLevel: 'none' | 'mentioned'
+  indicators: ContextIndicator[]
+  statedLocations: string[]
+  budgetMentioned: boolean
+}
+
+
 
 
